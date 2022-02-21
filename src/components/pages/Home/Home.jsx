@@ -4,9 +4,14 @@ import SearchBar from '../../molecules/SearchBar/SearchBar'
 import Card from '../../molecules/Card/Card'
 
 const Home = () => (
-  <Flex direction="column" mt="40px" maxW="1280px" px="50px">
+  <Flex wrap="wrap" mt="40px" maxW="1280px" width="100%" px="50px" mx="auto">
     <SearchBar />
-    <Grid gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))">
+    <Grid
+      width="100%"
+      gap="20px"
+      gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+      justifyItems="center"
+    >
       <Card />
       <Card />
       <Card />

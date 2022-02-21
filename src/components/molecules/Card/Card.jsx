@@ -15,8 +15,10 @@ const Card = () => (
   >
     <Image src={BookDefaultImage} mb="20px" />
     <Flex direction="column" textAlign="center" mb="20px">
-      <Text>Titulo do Card</Text>
-      <Text>
+      <Text fontWeight="bold" mb="10px">
+        Titulo do Card
+      </Text>
+      <Text lineHeight="1.2" fontSize="14px" color="#888">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, harum
         beatae voluptates explicabo nostrum inventore, recusandae necessitatibus
       </Text>
