@@ -1,15 +1,17 @@
 import React from 'react'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import BookDefaultImage from './default-book.jpg'
+import Stats from '../../atoms/Stats/Stats'
 
 const Card = () => (
   <Flex
     direction="column"
     borderRadius="4px"
     overflow="hidden"
-    boxShadow="1px 2px 1px 1px #ccc"
+    boxShadow="5px 5px 15px rgba(191, 189, 189, 0.9)"
     maxW="240px"
     w="100%"
+    mb="20px"
   >
     <Image src={BookDefaultImage} mb="20px" />
     <Flex direction="column" textAlign="center" mb="20px">
@@ -20,12 +22,8 @@ const Card = () => (
       </Text>
     </Flex>
     <Flex justifyContent="space-evenly" bg="#FB0772" p="20px" color="#fff">
-      <Text>
-        200<span>pages</span>
-      </Text>
-      <Text>
-        4.5<span>ratings</span>
-      </Text>
+      <Stats value="200" label="pages" />
+      <Stats value="4.5" label="rating" />
     </Flex>
   </Flex>
 )

@@ -1,12 +1,17 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/react'
-import SearchBar from 'src/components/molecules/SearchBar'
-import Card from 'src/components/molecules/Card'
+import { Flex, Grid } from '@chakra-ui/react'
+import SearchBar from '../../molecules/SearchBar/SearchBar'
+import Card from '../../molecules/Card/Card'
 
 const Home = () => (
   <Flex direction="column" mt="40px" maxW="1280px" px="50px">
     <SearchBar />
-    <Card />
+    <Grid gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))">
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+    </Grid>
   </Flex>
 )
 
