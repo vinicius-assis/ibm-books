@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import BookDefaultImage from './default-book.jpg'
 import Stats from '../../atoms/Stats/Stats'
 
-const Card = () => (
+const Card = ({
+  title,
+  description,
+  averageRating = 'unrated',
+  pagesCount,
+}) => (
   <Flex
     direction="column"
     borderRadius="4px"
@@ -14,20 +19,32 @@ const Card = () => (
     mb="20px"
   >
     <Image src={BookDefaultImage} mb="20px" />
-    <Flex direction="column" textAlign="center" mb="20px">
-      <Text fontWeight="bold" mb="10px">
-        Titulo do Card
+    <Flex direction="column" textAlign="center" mb="20px" px="10px">
+      <Text fontWeight="bold" mb="10px" lineHeight="1.2">
+        {title}
       </Text>
-      <Text lineHeight="1.2" fontSize="14px" color="#888">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, harum
-        beatae voluptates explicabo nostrum inventore, recusandae necessitatibus
+      <Text
+        lineHeight="1.2"
+        fontSize="14px"
+        color="#888"
+        maxH="150px"
+        h="100%"
+        overflowY="hidden"
+      >
+        {description}
       </Text>
     </Flex>
-    <Flex justifyContent="space-evenly" bg="#FB0772" p="20px" color="#fff">
-      <Stats value="200" label="pages" />
-      <Stats value="4.5" label="rating" />
+    <Flex
+      justifyContent="space-evenly"
+      bg="#FB0772"
+      p="20px"
+      color="#fff"
+      mt="auto"
+    >
+      <Stats value={pagesCount} label="pages" />
+      <Stats value={averageRating} label="rating" />
     </Flex>
   </Flex>
 )
 
-export default Card
+export default memo(Card)
