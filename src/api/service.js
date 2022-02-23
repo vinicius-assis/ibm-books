@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { clientID, secretKey } from './google.token.js'
 
-const instanceAPI = axios.create({
+const service = axios.create({
   baseURL: 'https://www.googleapis.com/books/v1',
   auth: {
     username: clientID,
@@ -9,4 +9,4 @@ const instanceAPI = axios.create({
   },
 })
 
-export default instanceAPI
+export default service

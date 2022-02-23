@@ -4,7 +4,7 @@ export const normalizeBookData = list =>
       id,
       volumeInfo: { description, pageCount, title, averageRating, authors },
     }) => ({
-      description: `${description.substring(0, 255)}...`,
+      description,
       pageCount,
       title,
       averageRating,
