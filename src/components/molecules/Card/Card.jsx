@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import BookDefaultImage from './default-book.jpg'
 import Stats from '../../atoms/Stats/Stats'
+import FavoriteButton from '../../atoms/FavoriteButton'
 
 const Card = ({
   title,
@@ -17,7 +18,9 @@ const Card = ({
     maxW="240px"
     w="100%"
     mb="20px"
+    position="relative"
   >
+    <FavoriteButton />
     <Image src={BookDefaultImage} mb="20px" />
     <Flex direction="column" textAlign="center" mb="20px" px="10px">
       <Text fontWeight="bold" mb="10px" lineHeight="1.2">
