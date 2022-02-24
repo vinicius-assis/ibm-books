@@ -10,7 +10,8 @@ const Pagination = () => {
   }
 
   const handleChangePage = page => {
-    paginationFetch(page - 1)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    paginationFetch(page)
   }
 
   return (
@@ -19,8 +20,7 @@ const Pagination = () => {
       currentPage={currentPage}
       outerLimit={2}
       innerLimit={1}
-      // TODO: FIX PAGINATION IT'S NOT POSSIBLE CHANGE PAGE AFTER SECOND PAGE
-      //  ADD STYLE IN ACTIVE AND DEFAULT BUTTON
+      // TODO: ADD STYLE IN ACTIVE AND DEFAULT BUTTON
       activeStyles={{ border: '1px solid green' }}
       onPageChange={page => handleChangePage(page)}
     >

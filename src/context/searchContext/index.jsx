@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
 import { searchResquest } from '../../api/factory'
 import { normalizeBookData } from '../../helpers/normalizeBookData'
 import { normalizeNumberOfPages } from '../../helpers/normalizeNumberOfPages'
@@ -10,7 +10,10 @@ import {
 export const SearchContext = createContext({})
 
 export const SearchStorage = ({ children }) => {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useReducer((prev, next) => {
+    console.log(next)
+    return next
+  }, '')
   const [booksList, setBooksList] = useState([])
   const [lastValue, setLastValue] = useState('')
   const [favoritesBooks, setFavoritesBooks] = useState([])
@@ -26,7 +29,7 @@ export const SearchStorage = ({ children }) => {
     setFavoritesBooksInStorage(item)
   }
 
-  const fetchData = async (inputValue, page = 0) => {
+  const fetchData = async (page = 1) => {
     setLoading(true)
     const {
       data: { items, totalItems },
@@ -38,18 +41,17 @@ export const SearchStorage = ({ children }) => {
     setLoading(false)
   }
 
-  const searchFetch = async () => {
+  const searchFetch = () => {
     if ([lastValue, ''].includes(inputValue)) {
       return
     }
     setCurrentPage(1)
-    fetchData(inputValue)
+    fetchData()
   }
   // TODO FIX BUG IN PAGINATION
-  const paginationFetch = async page => {
-    console.log(page)
+  const paginationFetch = page => {
     setCurrentPage(page)
-    fetchData(inputValue, page)
+    fetchData(page)
   }
 
   useEffect(() => {
