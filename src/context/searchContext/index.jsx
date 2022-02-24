@@ -37,13 +37,19 @@ export const SearchStorage = ({ children }) => {
     const storagedBooks = localStorage.getItem(favoriteStorage) ?? null
 
     if (storagedBooks) {
-      setFavoritesBooks(...JSON.parse(storagedBooks))
+      setFavoritesBooks(JSON.parse(storagedBooks))
     }
   }, [])
 
   return (
     <SearchContext.Provider
-      value={{ booksList, searchFetch, handleChange, handleFavoriteBooks }}
+      value={{
+        booksList,
+        searchFetch,
+        handleChange,
+        handleFavoriteBooks,
+        favoritesBooks,
+      }}
     >
       {children}
     </SearchContext.Provider>
