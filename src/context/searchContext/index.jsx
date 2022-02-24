@@ -13,9 +13,11 @@ export const SearchStorage = ({ children }) => {
   const [booksList, setBooksList] = useState([])
   const [lastValue, setLastValue] = useState('')
   const [favoritesBooks, setFavoritesBooks] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const handleChange = ({ target }) => setInputValue(target.value)
 
+  /* TODO: Add functionality to remove favorites card */
   const handleFavoriteBooks = item => {
     setFavoritesBooks([...favoritesBooks, item])
     setFavoritesBooksInStorage(item)
@@ -25,12 +27,13 @@ export const SearchStorage = ({ children }) => {
     if ([lastValue, ''].includes(inputValue)) {
       return
     }
-
+    setLoading(true)
     const {
       data: { items },
     } = await searchResquest(inputValue)
     setBooksList(normalizeBookData(items))
     setLastValue(inputValue)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -49,6 +52,7 @@ export const SearchStorage = ({ children }) => {
         handleChange,
         handleFavoriteBooks,
         favoritesBooks,
+        loading,
       }}
     >
       {children}

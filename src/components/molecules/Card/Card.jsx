@@ -5,7 +5,7 @@ import Stats from '../../atoms/Stats/Stats'
 import FavoriteButton from '../../atoms/FavoriteButton'
 
 const Card = ({ cardData, ...rest }) => {
-  const { description, title, pageCount, averageRating } = cardData
+  const { description, title, pageCount, averageRating = 'unrated' } = cardData
 
   return (
     <Flex
