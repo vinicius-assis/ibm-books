@@ -1,10 +1,13 @@
 import { Box } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { SearchContext } from '../../../context/searchContext'
+import { checkIfAlreadyExist } from '../../../helpers/setFavoritesBooksInStorage'
 import StarIcon from './StarIcon'
 
 const FavoriteButton = ({ currentCardData }) => {
-  const { handleFavoriteBooks } = useContext(SearchContext)
+  const { handleFavoriteBooks, favoritesBooks } = useContext(SearchContext)
+
+  const alreadyExist = checkIfAlreadyExist(favoritesBooks, currentCardData.id)
 
   return (
     <Box
@@ -20,9 +23,14 @@ const FavoriteButton = ({ currentCardData }) => {
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
+      sx={{
+        '&>svg': {
+          fill: alreadyExist ? '#f2c166' : 'transparent',
+        },
+      }}
       _hover={{
         '&>svg': {
-          fill: '#f2c166',
+          fill: !alreadyExist ? '#f2c166' : 'transparent',
         },
       }}
     >

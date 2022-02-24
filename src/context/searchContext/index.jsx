@@ -5,6 +5,7 @@ import { normalizeNumberOfPages } from '../../helpers/normalizeNumberOfPages'
 import {
   setFavoritesBooksInStorage,
   favoriteStorage,
+  checkIfAlreadyExist,
 } from '../../helpers/setFavoritesBooksInStorage'
 
 export const SearchContext = createContext({})
@@ -20,8 +21,18 @@ export const SearchStorage = ({ children }) => {
 
   /* TODO: Add functionality to remove favorites card */
   const handleFavoriteBooks = item => {
-    setFavoritesBooks([...favoritesBooks, item])
-    setFavoritesBooksInStorage(item)
+    const { id } = item
+    const alreadyExist = checkIfAlreadyExist(favoritesBooks, id)
+    if (alreadyExist) {
+      const filteredFavoriteList = favoritesBooks.filter(
+        ({ id: favoriteId }) => favoriteId !== id
+      )
+      setFavoritesBooks(filteredFavoriteList)
+      setFavoritesBooksInStorage(filteredFavoriteList)
+    } else {
+      setFavoritesBooks([...favoritesBooks, item])
+      setFavoritesBooksInStorage([...favoritesBooks, item])
+    }
   }
 
   const fetchData = async (page = 1, query) => {

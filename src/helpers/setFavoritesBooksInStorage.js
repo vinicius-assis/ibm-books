@@ -1,9 +1,7 @@
 export const favoriteStorage = 'FAVORITES_BOOKS'
 
-export const setFavoritesBooksInStorage = book => {
-  const storageItens = localStorage.getItem(favoriteStorage) ?? []
-  const concatedBooks = storageItens.length
-    ? [...JSON.parse(storageItens), book]
-    : [book]
-  localStorage.setItem(favoriteStorage, JSON.stringify(concatedBooks))
-}
+export const setFavoritesBooksInStorage = list =>
+  localStorage.setItem(favoriteStorage, JSON.stringify(list))
+
+export const checkIfAlreadyExist = (booksList, id) =>
+  booksList.some(({ id: favoriteId }) => favoriteId === id)
