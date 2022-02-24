@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { searchResquest } from '../../api/factory'
 import { normalizeBookData } from '../../helpers/normalizeBookData'
 import { normalizeNumberOfPages } from '../../helpers/normalizeNumberOfPages'
@@ -10,18 +10,13 @@ import {
 export const SearchContext = createContext({})
 
 export const SearchStorage = ({ children }) => {
-  const [inputValue, setInputValue] = useReducer((prev, next) => {
-    console.log(next)
-    return next
-  }, '')
   const [booksList, setBooksList] = useState([])
+  const [term, setTerm] = useState('')
   const [lastValue, setLastValue] = useState('')
   const [favoritesBooks, setFavoritesBooks] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalPages, setTotalPages] = useState(undefined)
   const [currentPage, setCurrentPage] = useState(1)
-
-  const handleChange = ({ target }) => setInputValue(target.value)
 
   /* TODO: Add functionality to remove favorites card */
   const handleFavoriteBooks = item => {
@@ -29,29 +24,30 @@ export const SearchStorage = ({ children }) => {
     setFavoritesBooksInStorage(item)
   }
 
-  const fetchData = async (page = 1) => {
+  const fetchData = async (page = 1, query) => {
     setLoading(true)
     const {
       data: { items, totalItems },
-    } = await searchResquest(inputValue, page)
+    } = await searchResquest(query, page)
     const numberOfPages = normalizeNumberOfPages(totalItems)
     setBooksList(normalizeBookData(items))
     setTotalPages(numberOfPages)
-    setLastValue(inputValue)
+    setLastValue(query)
     setLoading(false)
   }
 
-  const searchFetch = () => {
-    if ([lastValue, ''].includes(inputValue)) {
+  const searchFetch = query => {
+    if ([lastValue, ''].includes(query)) {
       return
     }
     setCurrentPage(1)
-    fetchData()
+    setTerm(query)
+    fetchData(1, query)
   }
   // TODO FIX BUG IN PAGINATION
-  const paginationFetch = page => {
+  const paginationFetch = (page, query) => {
     setCurrentPage(page)
-    fetchData(page)
+    fetchData(page, query)
   }
 
   useEffect(() => {
@@ -67,10 +63,11 @@ export const SearchStorage = ({ children }) => {
       value={{
         booksList,
         searchFetch,
-        handleChange,
         handleFavoriteBooks,
         favoritesBooks,
         loading,
+        term,
+        lastValue,
         totalPages,
         paginationFetch,
         currentPage,
