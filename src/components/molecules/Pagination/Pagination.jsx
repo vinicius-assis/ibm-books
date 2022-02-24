@@ -3,6 +3,29 @@ import { Paginator, Container, PageGroup } from 'chakra-paginator'
 import { SearchContext } from '../../../context/searchContext'
 import { useEffect, useState } from 'react'
 
+const baseStyles = {
+  w: 7,
+  fontSize: 'sm',
+}
+
+const normalStyles = {
+  ...baseStyles,
+  bg: 'blue.300',
+}
+
+const activeStyles = {
+  ...baseStyles,
+  bg: '#FB0772',
+  _hover: {
+    bg: '#FB0772',
+  },
+}
+
+const separatorStyles = {
+  w: 7,
+  bg: 'green.200',
+}
+
 const Pagination = () => {
   const { totalPages, paginationFetch, term, lastValue, currentPage } =
     useContext(SearchContext)
@@ -38,8 +61,10 @@ const Pagination = () => {
       currentPage={currentPage}
       outerLimit={2}
       innerLimit={1}
-      // TODO: ADD STYLE IN ACTIVE AND DEFAULT BUTTON
-      activeStyles={{ border: '1px solid green' }}
+      baseStyles={baseStyles}
+      normalStyles={normalStyles}
+      activeStyles={activeStyles}
+      separatorStyles={separatorStyles}
       onPageChange={setPage}
     >
       <Container align="center" justify="center" w="full" p={4}>
