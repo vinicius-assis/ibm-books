@@ -4,7 +4,7 @@ import BookDefaultImage from './default-book.jpg'
 import Stats from '../../atoms/Stats/Stats'
 import FavoriteButton from '../../atoms/FavoriteButton'
 
-const Card = ({ cardData }) => {
+const Card = ({ cardData, ...rest }) => {
   const { description, title, pageCount, averageRating } = cardData
 
   return (
@@ -17,6 +17,7 @@ const Card = ({ cardData }) => {
       w="100%"
       mb="20px"
       position="relative"
+      sx={rest}
     >
       <FavoriteButton currentCardData={cardData} />
       <Image src={BookDefaultImage} mb="20px" />
