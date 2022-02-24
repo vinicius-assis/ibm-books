@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { searchResquest } from '../../api/factory'
 import { normalizeBookData } from '../../helpers/normalizeBookData'
+import { normalizeNumberOfPages } from '../../helpers/normalizeNumberOfPages'
 import {
   setFavoritesBooksInStorage,
   favoriteStorage,
@@ -14,6 +15,8 @@ export const SearchStorage = ({ children }) => {
   const [lastValue, setLastValue] = useState('')
   const [favoritesBooks, setFavoritesBooks] = useState([])
   const [loading, setLoading] = useState(false)
+  const [totalPages, setTotalPages] = useState(undefined)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handleChange = ({ target }) => setInputValue(target.value)
 
@@ -23,17 +26,30 @@ export const SearchStorage = ({ children }) => {
     setFavoritesBooksInStorage(item)
   }
 
+  const fetchData = async (inputValue, page = 0) => {
+    setLoading(true)
+    const {
+      data: { items, totalItems },
+    } = await searchResquest(inputValue, page)
+    const numberOfPages = normalizeNumberOfPages(totalItems)
+    setBooksList(normalizeBookData(items))
+    setTotalPages(numberOfPages)
+    setLastValue(inputValue)
+    setLoading(false)
+  }
+
   const searchFetch = async () => {
     if ([lastValue, ''].includes(inputValue)) {
       return
     }
-    setLoading(true)
-    const {
-      data: { items },
-    } = await searchResquest(inputValue)
-    setBooksList(normalizeBookData(items))
-    setLastValue(inputValue)
-    setLoading(false)
+    setCurrentPage(1)
+    fetchData(inputValue)
+  }
+  // TODO FIX BUG IN PAGINATION
+  const paginationFetch = async page => {
+    console.log(page)
+    setCurrentPage(page)
+    fetchData(inputValue, page)
   }
 
   useEffect(() => {
@@ -53,6 +69,9 @@ export const SearchStorage = ({ children }) => {
         handleFavoriteBooks,
         favoritesBooks,
         loading,
+        totalPages,
+        paginationFetch,
+        currentPage,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import SearchBar from '../../molecules/SearchBar/SearchBar'
 import { SearchStorage } from '../../../context/searchContext'
 import CardList from '../../organisms/CardList'
 import FavoriteSection from '../../molecules/FavoriteSection'
+import Pagination from '../../molecules/Pagination'
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
           <CardList />
         </Grid>
       </Flex>
+      <Pagination />
     </SearchStorage>
   )
 }
