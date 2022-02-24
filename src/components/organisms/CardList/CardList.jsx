@@ -7,14 +7,8 @@ const CardList = () => {
 
   return (
     <>
-      {booksList.map(({ id, description, title, pageCount, averageRating }) => (
-        <Card
-          key={id}
-          title={title}
-          description={description}
-          averageRating={averageRating}
-          pagesCount={pageCount}
-        />
+      {booksList.map(card => (
+        <Card key={card.id} cardData={card} />
       ))}
     </>
   )
